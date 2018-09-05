@@ -16,6 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
+import MovieList from 'components/MovieList';
 import { connect } from 'react-redux';
 import injectSaga from 'utils/injectSaga';
 import { searchMovies, loadMovies } from './actions';
@@ -23,6 +24,7 @@ import {
   makeSelectTitle,
   makeSelectError,
   makeSelectLoading,
+  makeSelectMovies,
 } from './selectors';
 import messages from './messages';
 import reducer from './reducer';
@@ -31,6 +33,7 @@ import saga from './saga';
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   render() {
+    console.log(this.props);
     return (
       <div>
         <h1>
@@ -47,6 +50,7 @@ export class HomePage extends React.PureComponent {
           />
           <Button>Submit</Button>
         </form>
+        <MovieList movies={this.props.movies} />
       </div>
     );
   }
@@ -62,16 +66,18 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
+const mapStateToProps = createStructuredSelector({
+  searchTitle: makeSelectTitle(),
+  loading: makeSelectLoading(),
+  movies: makeSelectMovies(),
+  error: makeSelectError(),
+});
+
 HomePage.propTypes = {
+  movies: PropTypes.any,
   onSubmitTitle: PropTypes.func,
   onChangeMovie: PropTypes.func,
 };
-
-const mapStateToProps = createStructuredSelector({
-  searchTitle: makeSelectTitle,
-  loading: makeSelectLoading,
-  error: makeSelectError,
-});
 
 const withConnect = connect(
   mapStateToProps,

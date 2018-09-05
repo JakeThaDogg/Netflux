@@ -12,4 +12,15 @@ const makeSelectLoading = () =>
 const makeSelectError = () =>
   createSelector(selectHome, homeState => homeState.get('error'));
 
-export { selectHome, makeSelectTitle, makeSelectLoading, makeSelectError };
+const makeSelectMovies = () =>
+  createSelector(selectHome, homeState =>
+    homeState.getIn(['userData', 'movies']),
+  );
+
+export {
+  selectHome,
+  makeSelectTitle,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectMovies,
+};

@@ -6,7 +6,6 @@ import {
 } from './constants';
 
 export function searchMovies(movie) {
-  console.log(movie);
   return {
     type: SEARCH_MOVIES,
     movie,
@@ -14,7 +13,6 @@ export function searchMovies(movie) {
 }
 
 export function loadMovies() {
-  console.log('load movies');
   return {
     type: LOAD_MOVIES,
   };
